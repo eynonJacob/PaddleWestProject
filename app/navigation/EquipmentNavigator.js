@@ -1,12 +1,10 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import EquipmentScreen from "../screens/EquipmentScreen";
 import EquipmentDetailsScreen from "../screens/EquipmentDetailsScreen";
 import { Button } from "react-native";
 import colors from "../config/colors";
-import AppButton from "../components/AppButton";
 import NewEquipmentScreen from "../screens/NewEquiptmentScreen";
 
 const Stack = createStackNavigator();

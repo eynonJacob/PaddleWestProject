@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ActivityIndicator, Button, StyleSheet } from "react-native";
+import {
+  FlatList,
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Alert,
+} from "react-native";
 
 import Card from "../components/Card";
 import Screen from "../components/Screen";
@@ -10,8 +16,8 @@ import AppText from "../components/AppText";
 import equipmentApi from "../api/equipment";
 import useApi from "../hooks/useApi";
 
-function EquipmentScreen({ navigation }) {
-  const getEquipmentApi = useApi(equipmentApi.getEquipment);
+function MaintenanceScreen({ navigation }) {
+  const getEquipmentApi = useApi(equipmentApi.needMaintanence);
 
   useEffect(() => {
     getEquipmentApi.request();
@@ -25,6 +31,17 @@ function EquipmentScreen({ navigation }) {
     });
     return focusHandler;
   }, [navigation]);
+
+  const handleMaintenance = async (equipmentID) => {
+    console.log(equipmentID);
+    const result = await equipmentApi.isMaintained(equipmentID);
+    console.log("await");
+    if (!result.ok) return alert("Could not communicate with server");
+    alert("Success");
+    Alert.alert("3 months added to maintenance schedule");
+    //refresh after complete
+    getEquipmentApi.request();
+  };
 
   return (
     <Screen style={styles.screen}>
@@ -49,9 +66,9 @@ function EquipmentScreen({ navigation }) {
         renderItem={({ item }) => (
           <Card
             title={item.productName}
-            subTitle={"£" + item.hirePrice}
-            image={require("../assets/canoe.jpg")}
-            onPress={() => navigation.navigate(routes.EQUIPMENT_DETAILS, item)}
+            subTitle={"Needs Maintenance"}
+            image={require("../assets/background.jpg")}
+            onPress={() => handleMaintenance(item.equipmentID)}
           />
         )}
         refreshing={refreshing}
@@ -69,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EquipmentScreen;
+export default MaintenanceScreen;

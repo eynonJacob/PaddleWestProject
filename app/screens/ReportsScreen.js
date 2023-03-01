@@ -3,58 +3,32 @@ import { View, StyleSheet, FlatList, Text } from "react-native";
 
 import colors from "../config/colors";
 import Screen from "../components/Screen";
-import routes from "../navigation/routes";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import ListItem from "../components/lists/ListItem";
 import Icon from "../components/Icon";
 
 const menuItems = [
   {
-    title: "Equipment Maintanance",
+    title: "Return History",
     icon: {
-      name: "email",
+      name: "format-list-bulleted",
       backgroundColor: colors.primary,
     },
-    targetScreen: "Report1",
+    targetScreen: "Hire History",
   },
   {
-    title: "Staff Hire Stats",
+    title: "Maintenance",
     icon: {
-      name: "email",
-      backgroundColor: colors.secondary,
-    },
-    targetScreen: "Tester",
-  },
-  {
-    title: "Another Report",
-    icon: {
-      name: "email",
+      name: "access-alarm",
       backgroundColor: "red",
     },
-    targetScreen: "Tester",
-  },
-  {
-    title: "Another",
-    icon: {
-      name: "email",
-      backgroundColor: "green",
-    },
-    targetScreen: "Tester",
-  },
-  {
-    title: "This One",
-    icon: {
-      name: "email",
-      backgroundColor: "purple",
-    },
-    targetScreen: "Tester",
+    targetScreen: "Maintenance",
   },
 ];
 
 function ReportsScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      {/* <Text style={styles.headingText}>Reports</Text> */}
       <FlatList
         data={menuItems}
         keyExtractor={(menuItem) => menuItem.title}

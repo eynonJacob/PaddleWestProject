@@ -3,12 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import FeedNavigator from "./HiresNavigator";
-import AccountNavigator from "./AccountNavigator";
 import EquipmentNavigator from "./EquipmentNavigator";
 
 import AccountScreen from "../screens/AccountScreen";
 import StaffNavigator from "./StaffNavigator";
-import ReportsScreen from "../screens/ReportsScreen";
 import ReportsNavigator from "./ReportsNavigator";
 
 const Tab = createBottomTabNavigator();

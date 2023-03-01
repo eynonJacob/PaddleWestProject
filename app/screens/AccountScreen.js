@@ -44,25 +44,6 @@ function AccountScreen({ navigation }) {
           image={require("../assets/pfp.jpg")}
         />
       </View>
-      {/* <View style={styles.container}>
-        <FlatList
-          data={menuItems}
-          keyExtractor={(menuItem) => menuItem.title}
-          ItemSeparatorComponent={ListItemSeparator}
-          renderItem={({ item }) => (
-            <ListItem
-              title={item.title}
-              IconComponent={
-                <Icon
-                  name={item.icon.name}
-                  backgroundColor={item.icon.backgroundColor}
-                />
-              }
-              onPress={() => navigation.navigate(item.targetScreen)}
-            />
-          )}
-        />
-      </View> */}
 
       <ListItem
         title="Log out"

@@ -6,7 +6,6 @@ import HireDetailsScreen from "../screens/HireDetailsScreen";
 import NewHireScreen from "../screens/NewHireScreen";
 import { Button } from "react-native";
 import colors from "../config/colors";
-import AppButton from "../components/AppButton";
 
 const Stack = createStackNavigator();
 

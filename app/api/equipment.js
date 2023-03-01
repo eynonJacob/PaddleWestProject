@@ -2,20 +2,14 @@ import client from "./client";
 
 const endpointGet = "/equipment";
 const endpointPost = "/addequipment";
+const endpointNeeds = "/needmaintenance";
+const endpointIs = "/ismaintained";
 
 let today = new Date().toISOString().slice(0, 10);
 
 const getEquipment = () => client.get(endpointGet);
 
 const addEquipment = (equipment) => {
-  //content-type
-  //application/json
-  //multipart/form-data
-  //   const data = new FormData();
-  //   data.append("ProductName", equip.ProductName);
-  //   data.append("DateOfPurchase", equip.DateOfPurchase);
-  //   data.append("HirePrice", equip.HirePrice);
-
   const data = {
     productName: equipment.productName,
     dateOfPurchase: equipment.dateOfPurchase,
@@ -34,4 +28,15 @@ const addEquipment = (equipment) => {
   return client.post(endpointPost, data);
 };
 
-export default { addEquipment, getEquipment };
+//Maintenace
+const needMaintanence = () => client.get(endpointNeeds);
+
+const isMaintained = (equipmentID) => {
+  const data = {
+    equipmentID: equipmentID,
+  };
+
+  return client.post(endpointIs, data);
+};
+
+export default { addEquipment, getEquipment, needMaintanence, isMaintained };

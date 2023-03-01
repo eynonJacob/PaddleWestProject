@@ -7,34 +7,47 @@ import AppText from "../components/AppText";
 import ListItem from "../components/lists/ListItem";
 import colors from "../config/colors";
 
-function HireDetailsScreen({ route }) {
+import hiresApi from "../api/hires";
+
+function HireDetailsScreen({ route, navigation }) {
+  const handleDelete = async (hireID) => {
+    console.log("return ", hireID);
+    const result = await hiresApi.returnHire(hireID);
+    console.log("await");
+    //console.log(hire.hireID.toString());
+    if (!result.ok) return alert("Hire could not be returned");
+    alert("Hire successfully returned");
+    navigation.navigate("Hires");
+  };
   const hire = route.params;
   return (
     <ScrollView>
-      <View>
+      {/* <View>
         <Image style={styles.image} source={require("../assets/canoe.jpg")} />
-      </View>
+      </View> */}
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{hire.customerName}</AppText>
+        <AppText>Hire ID: {hire.hireID}</AppText>
+        <AppText />
         <AppText style={styles.subTitle}>Customer Contact</AppText>
         <AppText>Phone: {hire.customerPhone}</AppText>
         <AppText>Email: {hire.customerEmail}</AppText>
+        <AppText />
+        <AppText style={styles.subTitle}>Equipment Information</AppText>
+        <AppText>Equipment ID: {hire.equipmentID}</AppText>
+        <AppText>Equipment Name: TO BE INSERTED</AppText>
         <AppText />
         <AppText style={styles.subTitle}>Hire Information</AppText>
         <AppText>Loaned: {hire.dateOfHire}</AppText>
         <AppText>Return by: {hire.dateOfReturn}</AppText>
         <AppText />
+        <AppButton title="Return" onPress={() => handleDelete(hire.hireID)} />
 
-        <Text>
-          Details of return date, clickable link for equipment, return button
-          etc... to come
-        </Text>
-        {/* <AppButton title="+"> </AppButton> */}
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/pfp.jpg")}
-            title="Jacob Eynon"
-            subTitle="2 Hires"
+            title="EMPLOYEE NAME"
+            subTitle="NO. Hires"
           />
         </View>
       </View>

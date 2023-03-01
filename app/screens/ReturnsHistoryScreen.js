@@ -1,43 +1,24 @@
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Button,
-  FlatList,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { ActivityIndicator, Button, FlatList, StyleSheet } from "react-native";
 
 import ListItem from "../components/lists/ListItem";
 import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import routes from "../navigation/routes";
 import colors from "../config/colors";
-import AppText from "../components/AppText";
 
+import AppText from "../components/AppText";
 import hiresApi from "../api/hires";
 import useApi from "../hooks/useApi";
 
-function ReturnsScreen({ navigation }) {
-  const getHiresApi = useApi(hiresApi.getHires);
+function ReturnsHistoryScreen({ navigation }) {
+  const getHiresApi = useApi(hiresApi.historicHires);
 
   useEffect(() => {
     getHiresApi.request();
   }, []);
 
   const [refreshing, setRefreshing] = useState(false);
-
-  const handleDelete = async (hireID) => {
-    console.log("return ", hireID);
-    const result = await hiresApi.returnHire(hireID);
-    console.log("await");
-    //console.log(hire.hireID.toString());
-    if (!result.ok) return alert("Hire could not be returned");
-    alert("Hire successfully returned");
-    //refresh after complete
-    getHiresApi.request();
-  };
 
   React.useEffect(() => {
     const focusHandler = navigation.addListener("focus", () => {
@@ -72,27 +53,7 @@ function ReturnsScreen({ navigation }) {
             title={item.customerName}
             subTitle={item.hireID}
             image={require("../assets/canoe.jpg")}
-            onPress={() => navigation.navigate(routes.HIRE_DETAILS, item)}
-            renderRightActions={() => (
-              <TouchableWithoutFeedback
-                onPress={() => handleDelete(item.hireID)}
-              >
-                <View
-                  style={{
-                    backgroundColor: colors.green,
-                    width: 70,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <MaterialIcons
-                    name="assignment-return"
-                    size={45}
-                    color={colors.white}
-                  />
-                </View>
-              </TouchableWithoutFeedback>
-            )}
+            //onPress={() => navigation.navigate(routes.HIRE_DETAILS, item)}
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
@@ -105,4 +66,4 @@ function ReturnsScreen({ navigation }) {
   );
 }
 
-export default ReturnsScreen;
+export default ReturnsHistoryScreen;

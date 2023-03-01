@@ -11,7 +11,6 @@ const addStaff = (staff) => {
     email: staff.email,
     password: staff.password,
   };
-  //return console.log(data);
   return client.post(endpointPost, data);
 };
 

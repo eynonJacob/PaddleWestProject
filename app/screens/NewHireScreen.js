@@ -1,51 +1,52 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
-import {
-  AppForm,
-  AppFormField,
-  DTPField,
-  SubmitButton,
-} from "../components/forms";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 import Screen from "../components/Screen";
 import defaultStyles from "../config/styles";
 
 import hiresApi from "../api/hires";
+import equipmentApi from "../api/equipment";
+import useApi from "../hooks/useApi";
+import AppFormPicker from "../components/forms/AppFormPicker";
 
 let today = new Date().toISOString().slice(0, 10);
 
 const validationSchema = Yup.object().shape({
-  equipmentID: Yup.string().required().label("Equipment ID"),
+  equipmentID: Yup.number().required().nullable().label("Equipment ID"),
   dateOfReturn: Yup.date()
     .required()
-    .typeError("The value must be a date (YY-MM-DD)")
+    .typeError("The value must be a date (YYMMDD)")
     .min(today)
     .max(new Date(9999, 12, 31))
     .label("Return Date"),
   customerName: Yup.string().required().label("Name"),
   customerPhone: Yup.string().required().length(11).label("Phone Number"),
-  customerEmail: Yup.string().email().label("Email"),
+  customerEmail: Yup.string().email().required().label("Email"),
 });
 
-function NewHireScreen(props) {
+function NewHireScreen({ navigation }) {
+  const getEquipmentApi = useApi(equipmentApi.getEquipment);
+  useEffect(() => {
+    getEquipmentApi.request();
+  }, []);
+
   const handleSubmit = async (hire, { resetForm }) => {
     const result = await hiresApi.addHire(hire);
     if (!result.ok) return alert("Hire could not be recorded");
     alert("Hire successfully added");
     resetForm();
+    navigation.navigate("Hires");
   };
 
   return (
     <Screen style={styles.container}>
-      {/* <Text style={styles.headingText}>Create a Hire</Text> */}
       <ScrollView>
         <AppForm
           initialValues={{
-            equipmentID: "",
+            equipmentID: null,
             dateOfReturn: "",
-            dateOfReturnDTP: "",
-            //dateOfReturn: Date.now(),
             customerName: "",
             customerPhone: "",
             customerEmail: "",
@@ -53,21 +54,12 @@ function NewHireScreen(props) {
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <AppFormField
+          <AppFormPicker
+            items={getEquipmentApi.data}
             name="equipmentID"
             placeholder="Equipment ID"
-            keyboardType="numeric"
-            maxLength={4}
-            width={150}
           />
-          {/* <DTPField name="dateOfReturnDTP" placeholder="Return Date" /> */}
-          {/* <DatePickerField
-            mode="date"
-            textColor="grey"
-            name="dateOfReturn"
-            value={initialValues.dateOfReturn}
-            //onChange={setFieldValue}
-          /> */}
+
           <AppFormField
             name="dateOfReturn"
             placeholder="Return Date (YYMMDD)"
@@ -94,7 +86,7 @@ function NewHireScreen(props) {
             placeholder="Customer Email"
             keyboardType="email-address"
           />
-          <SubmitButton title="Create Hire" onPress={() => navigation.pop()} />
+          <SubmitButton title="Create Hire" />
         </AppForm>
       </ScrollView>
     </Screen>
