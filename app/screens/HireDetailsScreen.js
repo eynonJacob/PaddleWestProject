@@ -35,19 +35,18 @@ function HireDetailsScreen({ route, navigation }) {
         <AppText />
         <AppText style={styles.subTitle}>Equipment Information</AppText>
         <AppText>Equipment ID: {hire.equipmentID}</AppText>
-        <AppText>Equipment Name: TO BE INSERTED</AppText>
         <AppText />
         <AppText style={styles.subTitle}>Hire Information</AppText>
-        <AppText>Loaned: {hire.dateOfHire}</AppText>
-        <AppText>Return by: {hire.dateOfReturn}</AppText>
+        <AppText>Loaned: {hire.dateOfHire.substring(0, 10)}</AppText>
+        <AppText>Return by: {hire.dateOfReturn.substring(0, 10)}</AppText>
         <AppText />
         <AppButton title="Return" onPress={() => handleDelete(hire.hireID)} />
 
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/pfp.jpg")}
-            title="EMPLOYEE NAME"
-            subTitle="NO. Hires"
+            title={hire.customerName}
+            subTitle="1 HIRE OUT"
           />
         </View>
       </View>

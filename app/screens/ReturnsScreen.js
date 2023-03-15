@@ -62,6 +62,7 @@ function ReturnsScreen({ navigation }) {
           </Screen>
         </>
       )}
+
       <ActivityIndicator animating={getHiresApi.loading} />
 
       <FlatList

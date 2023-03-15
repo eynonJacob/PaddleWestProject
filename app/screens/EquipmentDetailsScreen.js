@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Image, StyleSheet, Text, ScrollView } from "react-native";
+import AppText from "../components/AppText";
 
 import colors from "../config/colors";
 
@@ -12,7 +13,16 @@ function EquipmentDetailsScreen({ route }) {
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>{equipments.productName}</Text>
           <Text style={styles.subTitle}>£{equipments.hirePrice} per week</Text>
-          <Text>Some more info here?</Text>
+          <AppText>Equipment ID: {equipments.equipmentID}</AppText>
+          <AppText />
+          <Text style={styles.subTitle}>Maintenance Information</Text>
+          <AppText>
+            Date of Purchase: {equipments.dateOfPurchase.substring(0, 10)}
+          </AppText>
+          <AppText>Activity Status: {equipments.active}</AppText>
+          <AppText>
+            Next Check Date: {equipments.checkDate.substring(0, 10)}
+          </AppText>
         </View>
       </View>
     </ScrollView>

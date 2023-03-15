@@ -44,7 +44,7 @@ function StaffScreen({ navigation }) {
             title={item.name}
             subTitle={item.email}
             image={require("../assets/pfp.jpg")}
-            onPress={() => alert(item.name)}
+            //onPress={() => alert(item.name, item.email)}
           />
         )}
         ItemSeparatorComponent={ListItemSeparator}
