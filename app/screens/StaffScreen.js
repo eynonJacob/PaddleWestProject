@@ -6,8 +6,8 @@ import ListItemSeparator from "../components/lists/ListItemSeparator";
 import Screen from "../components/Screen";
 import routes from "../navigation/routes";
 import colors from "../config/colors";
-
 import AppText from "../components/AppText";
+
 import staffApi from "../api/staff";
 import useApi from "../hooks/useApi";
 
