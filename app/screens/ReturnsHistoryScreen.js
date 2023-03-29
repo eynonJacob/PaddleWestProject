@@ -52,7 +52,7 @@ function ReturnsHistoryScreen({ navigation }) {
           <ListItem
             title={item.customerName}
             subTitle={item.hireID}
-            image={require("../assets/canoe.jpg")}
+            image={require("../assets/placeholder.png")}
             //onPress={() => navigation.navigate(routes.HIRE_DETAILS, item)}
           />
         )}
