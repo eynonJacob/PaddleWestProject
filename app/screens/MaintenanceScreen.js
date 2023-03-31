@@ -34,10 +34,10 @@ function MaintenanceScreen({ navigation }) {
 
   const handleMaintenance = async (equipmentID) => {
     console.log(equipmentID);
+
     const result = await equipmentApi.isMaintained(equipmentID);
     console.log("await");
     if (!result.ok) return alert("Could not communicate with server");
-    alert("Success");
     Alert.alert("3 months added to maintenance schedule");
     //refresh after complete
     getEquipmentApi.request();
